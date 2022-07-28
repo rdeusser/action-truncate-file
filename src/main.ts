@@ -5,9 +5,9 @@ async function run(): Promise<void> {
   try {
     const file = core.getInput('file', {required: true})
     const characterLimit = Number(
-      core.getInput('characterLimit', {required: true})
+      core.getInput('character_limit', {required: true})
     )
-    const removeLastLine = core.getBooleanInput('removeLastLine')
+    const removeLastLine = core.getBooleanInput('remove_last_line')
 
     core.debug(new Date().toTimeString())
     fs.truncateSync(file, characterLimit)

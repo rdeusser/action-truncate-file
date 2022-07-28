@@ -48,8 +48,8 @@ function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const file = core.getInput('file', { required: true });
-            const characterLimit = Number(core.getInput('characterLimit', { required: true }));
-            const removeLastLine = core.getBooleanInput('removeLastLine');
+            const characterLimit = Number(core.getInput('character_limit', { required: true }));
+            const removeLastLine = core.getBooleanInput('remove_last_line');
             core.debug(new Date().toTimeString());
             fs_1.default.truncateSync(file, characterLimit);
             if (removeLastLine) {

@@ -9,8 +9,8 @@ test('truncates file', () => {
   const originalOutput = fs.readFileSync(file).toString()
 
   process.env['INPUT_FILE'] = file
-  process.env['INPUT_CHARACTERLIMIT'] = '1234'
-  process.env['INPUT_REMOVELASTLINE'] = 'false'
+  process.env['INPUT_CHARACTER_LIMIT'] = '1234'
+  process.env['INPUT_REMOVE_LAST_LINE'] = 'false'
 
   const node = process.execPath
   const main = path.join(__dirname, '..', 'lib', 'main.js')
@@ -31,8 +31,8 @@ test('truncates file and removes last line', () => {
   const originalOutput = fs.readFileSync(file).toString()
 
   process.env['INPUT_FILE'] = file
-  process.env['INPUT_CHARACTERLIMIT'] = '1234'
-  process.env['INPUT_REMOVELASTLINE'] = 'true'
+  process.env['INPUT_CHARACTER_LIMIT'] = '1234'
+  process.env['INPUT_REMOVE_LAST_LINE'] = 'true'
 
   const node = process.execPath
   const main = path.join(__dirname, '..', 'lib', 'main.js')
