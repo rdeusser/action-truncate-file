@@ -5,10 +5,10 @@ inputs:
   file:
     required: true
     description: 'Path to file to truncate'
-  characterlimit:
+  character_limit:
     required: true
     description: 'Action will truncate the number of characters in a file to this number'
-  removeLastLine:
+  remove_last_line:
     required: false
     description: 'Sometimes truncating can cutoff the information in the last line so if true, this removes it'
 runs:
