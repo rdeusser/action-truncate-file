@@ -21,4 +21,6 @@ jobs:
       - uses: actions/checkout@v3
       - uses: ./
         with:
-          milliseconds: 1000
+          file: __tests__/testdata/changelog.md
+          character_limit: 1218
+          remove_last_line: true
