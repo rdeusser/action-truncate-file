@@ -1,11 +1,16 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Robert Deusser'
+description: 'Truncates a file'
+author: 'Robert Deusser'
 inputs:
-  milliseconds: # change this
+  file:
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+    description: 'Path to file to truncate'
+  characterlimit:
+    required: true
+    description: 'Action will truncate the number of characters in a file to this number'
+  removeLastLine:
+    required: false
+    description: 'Sometimes truncating can cutoff the information in the last line so if true, this removes it'
 runs:
   using: 'node16'
   main: 'dist/index.js'
