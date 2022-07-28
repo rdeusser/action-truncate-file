@@ -1,29 +1,22 @@
 import * as core from '@actions/core'
-import {promises as fs} from 'fs'
-
-function toEntries<T>(a: T[]): readonly [number, T][] {
-  return a.map((value, index) => [index, value])
-}
+import fs from 'fs'
 
 async function run(): Promise<void> {
   try {
-    const file: string = core.getInput('file', {required: true})
+    const file = core.getInput('file', {required: true})
     const characterLimit = Number(
       core.getInput('characterLimit', {required: true})
     )
-    const removeLastLine: boolean = core.getBooleanInput('removeLastLine')
+    const removeLastLine = core.getBooleanInput('removeLastLine')
 
     core.debug(new Date().toTimeString())
-
-    fs.truncate(file, characterLimit)
+    fs.truncateSync(file, characterLimit)
 
     if (removeLastLine) {
-      const buffer = await fs.readFile(file)
-      const content = buffer.toString().split('\n')
-      for (const [index, line] of toEntries(content))
-        if (index === content.length - 1) {
-          fs.truncate(file, line.length)
-        }
+      const content = fs.readFileSync(file).toString()
+      const lines = content.split('\n')
+      lines.splice(lines.indexOf(lines[lines.length - 1]), 1)
+      fs.writeFileSync(file, lines.join('\n'))
     }
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)

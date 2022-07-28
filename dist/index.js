@@ -38,12 +38,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(186));
-const fs_1 = __nccwpck_require__(747);
-function toEntries(a) {
-    return a.map((value, index) => [index, value]);
-}
+const fs_1 = __importDefault(__nccwpck_require__(747));
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -51,14 +51,12 @@ function run() {
             const characterLimit = Number(core.getInput('characterLimit', { required: true }));
             const removeLastLine = core.getBooleanInput('removeLastLine');
             core.debug(new Date().toTimeString());
-            fs_1.promises.truncate(file, characterLimit);
+            fs_1.default.truncateSync(file, characterLimit);
             if (removeLastLine) {
-                const buffer = yield fs_1.promises.readFile(file);
-                const content = buffer.toString().split('\n');
-                for (const [index, line] of toEntries(content))
-                    if (index === content.length - 1) {
-                        fs_1.promises.truncate(file, line.length);
-                    }
+                const content = fs_1.default.readFileSync(file).toString();
+                const lines = content.split('\n');
+                lines.splice(lines.indexOf(lines[lines.length - 1]), 1);
+                fs_1.default.writeFileSync(file, lines.join('\n'));
             }
         }
         catch (error) {
